@@ -1,26 +1,42 @@
 package com.giedron;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Puzzle {
 
-    private int [][] puzzle = new int[3][3];
+    private int [][] puzzle;
     private final int[][] goal = { {1,2,3} , {4,5,6} , {7,8,0} };
+    private Map<String , Pair> moves = new HashMap<>();
 
-    public Puzzle( int [][] puzzle )
+    Puzzle(int[][] puzzle)
     {
+        this.puzzle = new int[3][3];
         this.puzzle = puzzle.clone();
+        this.initMoves();
     }
 
     public Puzzle( Puzzle puzzle )
     {
+        this.puzzle = new int[3][3];
         this.puzzle = puzzle.getPuzzle().clone();
+        this.initMoves();
     }
 
-    public int[][] getPuzzle()
+    private void initMoves()
+    {
+        this.moves.put("bottom" ,    new Pair(1, 0) );
+        this.moves.put("left" ,      new Pair(0, -1));
+        this.moves.put("top" ,       new Pair(-1, 0) );
+        this.moves.put("right" ,     new Pair(0, 1)  );
+    }
+
+    int[][] getPuzzle()
     {
         return this.puzzle;
     }
 
-    public int getCost()
+    int getCost()
     {
         int tmp = 0;
 
@@ -34,6 +50,36 @@ public class Puzzle {
         }
 
         return tmp;
+    }
+
+    private Pair getBlank()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                if(this.getPuzzle()[i][j] == 0)
+                    return new Pair(i,j);
+            }
+        }
+
+        return null;
+    }
+
+
+    Puzzle moveBlankTo( Pair move )
+    {
+        Puzzle puzzle = new Puzzle( this.getPuzzle().clone() );
+
+        Pair blankCo = puzzle.getBlank();
+        Pair toSwapCo = new Pair(blankCo.row() + move.row() , blankCo.col() + move.col() );
+
+        int tmp = puzzle.getPuzzle()[toSwapCo.row()][toSwapCo.col()];
+
+        puzzle.getPuzzle()[toSwapCo.row()][toSwapCo.col()] = 0;
+        puzzle.getPuzzle()[blankCo.row()][blankCo.col()] = tmp;
+
+        return puzzle;
     }
 
     public void display()
