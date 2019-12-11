@@ -14,9 +14,10 @@ public class Node {
     {
         this.puzzle = new Puzzle( puzzle.getPuzzle().clone() );
         this.level = level;
+        this.generateChildren();
     }
 
-    public void generateChildren()
+    private void generateChildren()
     {
         Pair blank = this.puzzle.getBlank();
 
