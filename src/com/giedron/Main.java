@@ -8,22 +8,20 @@ public class Main {
         Puzzle start = new Puzzle(st);
         start.display();
 
+        Puzzle sec = start.moveBlankTo( new Pair(1,0) ); //move bottom
 
-        System.out.println("Cost: " + start.getCost() );
-        Pair move = new Pair(1,0);
-        Puzzle sec = start.moveBlankTo(move);
-
-        System.out.println("start: " + start.getPuzzle() );
+        System.out.println("start: ");
         start.display();
 
-        System.out.println("sec: " + sec.getPuzzle());
+        System.out.println("sec: ");
         sec.display();
-        sec.moveBlankTo( new Pair(0,1) );
 
-        System.out.println("start: " + start.getPuzzle());
+        sec.moveBlankTo( new Pair(0,1) ); // move right // powino byc na pozycji [1][2]
+
+        System.out.println("start: ");
         start.display();
 
-        System.out.println("sec: " + sec.getPuzzle());
+        System.out.println("sec: ");
         sec.display();
 
 

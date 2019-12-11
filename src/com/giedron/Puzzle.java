@@ -3,7 +3,7 @@ package com.giedron;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Puzzle {
+public class Puzzle implements Cloneable {
 
     private int [][] puzzle;
     private final int[][] goal = { {1,2,3} , {4,5,6} , {7,8,0} };
@@ -67,9 +67,23 @@ public class Puzzle {
     }
 
 
+    Puzzle copy()
+    {
+        int tmp[][] = new int[3][3];
+
+        for(int i = 0; i < 3; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                tmp[i][j] = this.getPuzzle()[i][j];
+            }
+        }
+        return new Puzzle(tmp);
+    }
+
     Puzzle moveBlankTo( Pair move )
     {
-        Puzzle puzzle = new Puzzle( this.getPuzzle().clone() );
+        Puzzle puzzle = this.copy(); //new Puzzle( this.getPuzzle().clone() );
 
         Pair blankCo = puzzle.getBlank();
         Pair toSwapCo = new Pair(blankCo.row() + move.row() , blankCo.col() + move.col() );
