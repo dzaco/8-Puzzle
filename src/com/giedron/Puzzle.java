@@ -1,35 +1,22 @@
 package com.giedron;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Puzzle implements Cloneable {
 
     private int [][] puzzle;
     private final int[][] goal = { {1,2,3} , {4,5,6} , {7,8,0} };
-    private Map<String , Pair> moves = new HashMap<>();
 
     Puzzle(int[][] puzzle)
     {
         this.puzzle = new int[3][3];
         this.puzzle = puzzle.clone();
-        this.initMoves();
     }
 
     public Puzzle( Puzzle puzzle )
     {
         this.puzzle = new int[3][3];
         this.puzzle = puzzle.getPuzzle().clone();
-        this.initMoves();
     }
 
-    private void initMoves()
-    {
-        this.moves.put("bottom" ,    new Pair(1, 0) );
-        this.moves.put("left" ,      new Pair(0, -1));
-        this.moves.put("top" ,       new Pair(-1, 0) );
-        this.moves.put("right" ,     new Pair(0, 1)  );
-    }
 
     int[][] getPuzzle()
     {
@@ -52,7 +39,7 @@ public class Puzzle implements Cloneable {
         return tmp;
     }
 
-    private Pair getBlank()
+    public Pair getBlank()
     {
         for(int i = 0; i < 3; i++)
         {

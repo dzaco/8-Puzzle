@@ -16,7 +16,7 @@ public class Main {
         System.out.println("sec: ");
         sec.display();
 
-        sec.moveBlankTo( new Pair(0,1) ); // move right // powino byc na pozycji [1][2]
+        sec = sec.moveBlankTo( new Pair(0,1) ); // move right // powino byc na pozycji [1][2]
 
         System.out.println("start: ");
         start.display();
