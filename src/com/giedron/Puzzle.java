@@ -1,5 +1,8 @@
 package com.giedron;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Puzzle implements Cloneable {
 
     private int [][] puzzle;
@@ -98,4 +101,41 @@ public class Puzzle implements Cloneable {
         System.out.println("+ - - - +");
     }
 
+    public boolean isGoal()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                if( this.getPuzzle()[i][j] != this.goal[i][j] )
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isSolvable() {
+        int[][] matrix = this.puzzle.clone();
+        int count = 0;
+        List<Integer> array = new ArrayList<>();
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                array.add(matrix[i][j]);
+            }
+        }
+
+        Integer[] anotherArray = new Integer[array.size()];
+        array.toArray(anotherArray);
+
+        for (int i = 0; i < anotherArray.length - 1; i++) {
+            for (int j = i + 1; j < anotherArray.length; j++) {
+                if (anotherArray[i] != 0 && anotherArray[j] != 0 && anotherArray[i] > anotherArray[j]) {
+                    count++;
+                }
+            }
+        }
+
+        return count % 2 == 0;
+    }
 }

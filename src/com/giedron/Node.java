@@ -62,4 +62,16 @@ public class Node {
         return minPuzzle;
     }
 
+    public void display() {
+
+        this.puzzle.display();
+    }
+
+    public Puzzle getPuzzle() {
+        return this.puzzle;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
 }

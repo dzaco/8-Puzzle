@@ -4,26 +4,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[][] st = {{1,2,3} , {0,4,6} , {7,5,8}};
-        Puzzle start = new Puzzle(st);
-        start.display();
+        int[][] st = {{1,8,2} , {0,4,3} , {7,6,5}};
+        Puzzle puzzle = new Puzzle(st);
+        int level = 0;
+        Path path = new Path();
 
-        Puzzle sec = start.moveBlankTo( new Pair(1,0) ); //move bottom
+        if( puzzle.isSolvable() )
+        {
+            while( !puzzle.isGoal() )
+            {
+                Node node = new Node(puzzle , level++);
+                path.add(node);
+                node.display();
 
-        System.out.println("start: ");
-        start.display();
+                puzzle = null;
+                puzzle = new Puzzle( node.getPuzzleWithMinVal() );
+            }
+            path.add( new Node(puzzle , level) );
 
-        System.out.println("sec: ");
-        sec.display();
-
-        sec = sec.moveBlankTo( new Pair(0,1) ); // move right // powino byc na pozycji [1][2]
-
-        System.out.println("start: ");
-        start.display();
-
-        System.out.println("sec: ");
-        sec.display();
-
+            path.displayPath();
+        }
+        else
+        {
+            System.out.println("Układanki nie da się rozwiązć!");
+        }
 
     }
 }
