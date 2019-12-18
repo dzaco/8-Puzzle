@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Node {
+    private Puzzle parent;
     private Puzzle puzzle;
     private List<Puzzle> children = new ArrayList<>();
     private int level;
