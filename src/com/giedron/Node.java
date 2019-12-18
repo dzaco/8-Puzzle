@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Node {
-    private Puzzle parent;
     private Puzzle puzzle;
     private List<Puzzle> children = new ArrayList<>();
     private int level;
@@ -28,20 +27,21 @@ public class Node {
         moves.put("top" ,       new Pair(-1, 0) );
         moves.put("right" ,     new Pair(0, 1)  );
 
-        if(blank.col() == 0)
+        if(blank.col() == 0 || this.puzzle.getPreviousMove().equals(moves.get("right")) )
             moves.remove("left");
-        if(blank.col() == 2)
+        if(blank.col() == 2 || this.puzzle.getPreviousMove().equals(moves.get("left")))
             moves.remove("right");
-        if(blank.row() == 0)
+        if(blank.row() == 0 || this.puzzle.getPreviousMove().equals(moves.get("bottom")))
             moves.remove("top");
-        if(blank.row() == 2)
+        if(blank.row() == 2 || this.puzzle.getPreviousMove().equals(moves.get("top")))
             moves.remove("bottom");
 
         for( Pair move : moves.values() )
         {
-            Puzzle puzzle = this.puzzle.copy();
+            System.out.println("move in generator: " + move );
+            Puzzle puzzle = new Puzzle( this.puzzle.copy() , move );
             puzzle = puzzle.moveBlankTo(move);
-            this.children.add(puzzle);
+            this.children.add( puzzle );
         }
 
     }
@@ -75,4 +75,5 @@ public class Node {
     public int getLevel() {
         return this.level;
     }
+
 }

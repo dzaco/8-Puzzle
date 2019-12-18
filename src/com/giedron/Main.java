@@ -15,10 +15,13 @@ public class Main {
             {
                 Node node = new Node(puzzle , level++);
                 path.add(node);
+                System.out.println("PrevMove: " + puzzle.getPreviousMove().toString() );
                 node.display();
 
+                Pair prevMove = puzzle.getPreviousMove();
+                System.out.println("PrevMove - var: " + prevMove );
                 puzzle = null;
-                puzzle = new Puzzle( node.getPuzzleWithMinVal() );
+                puzzle = new Puzzle( node.getPuzzleWithMinVal() , prevMove );
             }
             path.add( new Node(puzzle , level) );
 

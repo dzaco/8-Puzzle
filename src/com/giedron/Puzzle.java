@@ -7,17 +7,21 @@ public class Puzzle implements Cloneable {
 
     private int [][] puzzle;
     private final int[][] goal = { {1,2,3} , {4,5,6} , {7,8,0} };
+    private Pair previousMove;
 
     Puzzle(int[][] puzzle)
     {
         this.puzzle = new int[3][3];
         this.puzzle = puzzle.clone();
+        this.previousMove = new Pair(0,0);
     }
 
-    public Puzzle( Puzzle puzzle )
+    public Puzzle( Puzzle puzzle , Pair previousMove )
     {
         this.puzzle = new int[3][3];
         this.puzzle = puzzle.getPuzzle().clone();
+        this.previousMove = previousMove;
+        System.out.println("move in constructor: " + previousMove );
     }
 
 
@@ -26,6 +30,14 @@ public class Puzzle implements Cloneable {
         return this.puzzle;
     }
 
+    public Pair getPreviousMove()
+    {
+        return this.previousMove;
+    }
+    public void setPreviousMove( Pair move )
+    {
+        this.previousMove = move;
+    }
     int getCost()
     {
         int tmp = 0;
